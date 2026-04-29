@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Http\Responses;
+
+use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
+
+class LogoutResponse implements LogoutResponseContract
+{
+    public function toResponse($request)
+    {
+        if ($request->input('logout_type') === 'admin') {
+            return redirect('/admin/login');
+        }
+
+        return redirect('/login');
+    }
+        
+}

@@ -1,0 +1,70 @@
+/* 全体背景 */
+.attendance-show-content {
+  background: #f3f3f3;
+  padding: 40px 20px;
+}
+
+/* 中央寄せ */
+.attendance-show-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* タイトル */
+.attendance-show-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* テーブル全体 */
+.show-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+/* 行の区切り */
+.show-table th,
+.show-table td {
+  border-bottom: 1px solid #ddd;
+  padding: 15px;
+}
+
+/* 左の項目名 */
+.show-table th {
+  width: 150px;
+  text-align: left;
+  color: #555;
+}
+
+/* 時間入力 */
+.time-input {
+  width: 100px;
+  padding: 5px;
+}
+
+/* ～の中央寄せ */
+.range-cell {
+  text-align: center;
+}
+
+/* 備考欄 */
+.note-textarea {
+  width: 100%;
+  height: 80px;
+}
+
+/* ボタン */
+.button-area {
+  margin-left: auto;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
