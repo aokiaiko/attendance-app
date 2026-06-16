@@ -25,7 +25,7 @@
         </div>
 
         <p class="attendance-date">
-            {{ $now->translatedFormat('Y年n月j日（D）') }}
+            {{ $now->translatedFormat('Y年n月j日(D)') }}
         </p>
 
         <p class="attendance-time">
@@ -34,7 +34,7 @@
 
         <div class="attendance-actions">
           @if (!$attendance)
-              <form  action=/attendance method=POST>
+              <form  action="{{ route('attendance.clockIn') }}" method=POST>
               @csrf
                 <button class="attendance-button attendance-button--primary">
                   出勤
@@ -43,13 +43,13 @@
 
             @elseif ($attendance->status === Attendance::STATUS_WORKING)
               <div class="attendance-actions attendance-actions--double">
-               <form  action=/attendance/clock-out method=POST>
+               <form  action="{{ route('attendance.clockOut') }}" method=POST>
                @csrf
                  <button class="attendance-button attendance-button--primary">
                    退勤
                  </button>
                </form>
-               <form  action=/attendance/break-start method=POST>
+               <form  action="{{ route('attendance.breakStart') }}" method=POST>
                @csrf
                  <button class="attendance-button attendance-button--secondary">
                    休憩入
@@ -59,7 +59,7 @@
        
             @elseif ($attendance->status === Attendance::STATUS_BREAK)
                <div class="attendance-actions">
-                <form  action=/attendance/break-end method=POST>
+                <form  action="{{ route('attendance.breakEnd') }}" method=POST>
                 @csrf
                   <button class="attendance-button attendance-button--secondary">
                     休憩戻

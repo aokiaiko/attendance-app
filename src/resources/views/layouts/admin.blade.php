@@ -19,9 +19,9 @@
         <nav class="header-nav">
          <ul class="header-nav__item">
           
-           <li class="nav-item"><a href="/">勤怠一覧</a></li>
-           <li class="nav-item"><a href="/">スタッフ一覧</a></li>
-           <li class="nav-item"><a href="/">申請一覧</a></li>
+           <li class="nav-item"><a href="{{ route('admin.attendance.index')}}/">勤怠一覧</a></li>
+           <li class="nav-item"><a href="{{ route('admin.staff.index')}}">スタッフ一覧</a></li>
+           <li class="nav-item"><a href="{{ route('stamp_correction_request.index')}}">申請一覧</a></li>
            <li class="nav-item">
             <form class="form" action="/logout" method="POST">
               @csrf

@@ -21,11 +21,13 @@
            </tr>
           </thead>
           <tbody>
+            @foreach( $users as $user)
             <tr>
-             <td>西 怜奈</td>
-             <td>reina.n@coachtech.com</td>
-             <td><a href="" class="detail-link">詳細</a></td>
+             <td>{{ $user->name }}</td>
+             <td>{{ $user->email}}</td>
+             <td><a href="{{ route('admin.attendance.staff',$user->id)}}" class="detail-link">詳細</a></td>
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>

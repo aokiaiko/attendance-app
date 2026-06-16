@@ -10,42 +10,71 @@
   <div class="attendance-show-container">
      <h1 class="attendance-show-title">勤怠詳細</h1>
 
-     <form class="" action="" method="POST">
+     <form  action="{{ route('stamp_correction_request.approve', $approve->id)}}" method="POST">
+      @method('PATCH')
       @csrf
       <div class="show-table-wrapper">
         <table class="show-table">
            <tr>
               <th>名前</th>
-              <td colspan="3">西怜奈</td>
+              <td></td>
+              <td>{{$approve->attendance->user->name}}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
            </tr>
            <tr>
               <th>日付</th>
-              <td>2023年</td>
-              <td colspan="2">6月1日</td>
+              <td></td>
+              <td>{{$approve->attendance->work_date->format('Y年')}}</td>
+              <td></td>
+              <td>{{$approve->attendance->work_date->format('n月j日')}}</td>
+              <td></td>
+              <td></td>
            </tr>
            <tr>
               <th>出勤・退勤</th>
-              <td>09:00</td>
+              <td></td>
+              <td class="input-cell">{{ $approve->requested_clock_in->format('H:i')}}</td>
               <td class="range-cell">～</td>
-              <td>18:00</td>
+              <td class="input-cell">{{ $approve->requested_clock_out->format('H:i')}}</td>
+              <td></td>
+              <td></td>
             </tr>
+            @foreach ($approve->breaks as $index => $break)
             <tr>
-               <th>休憩</th>
-               <td>12:00</td>
+               <th>休憩{{ $index === 0 ? '' : $index + 1 }}</th>
+               <td></td>
+               <td class="input-cell">{{ $break->requested_break_start->format('H:i')}}</td>
                <td class="range-cell">～</td>
-               <td>13:00</td>
+               <td class="input-cell">{{ $break->requested_break_end->format('H:i')}}</td>
+               <td></td>
+               <td></td>
             </tr>
+            @endforeach
             <tr>
                 <th>備考</th>
-                <td colspan="3">電車遅延のため</td>
+                <td></td>
+                <td colspan="3">{{$approve->note}}</td>
+                <td></td>
+                <td></td>
             </tr>
         </table>
       </div>
-    
-      <div class="attendance-show-button-area">
-            <button class="attendance-show-button" type="submit">承認</button>
+
+      @if($approve->status === 0)
+      <div class="button-area">
+            <button class="button" type="submit">承認</button>
       </div>
+      @elseif($approve->status === 1)
+      <div class="button-area">
+         <span class="approved">承認済み</span>
+      </div>
+      @endif
      </form>
+     
   </div>
 </div>
 @endsection

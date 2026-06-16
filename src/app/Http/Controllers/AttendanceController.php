@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Attendance;
+use App\Models\StampCorrectionRequest;
 
 
 class AttendanceController extends Controller
@@ -18,21 +19,79 @@ class AttendanceController extends Controller
         $today = $now->toDateString();
 
         $attendance = Attendance::where('user_id', $user->id)
-          ->where('work_date', $today)
+          ->whereDate('work_date', $today)
           ->first();
 
         return view('attendances.create',compact('now','attendance'));
     }
 
+
     public function index()
     {
-        return view('attendances.index');
+        Carbon::setLocale('ja');
+
+        $user = auth()->user();
+
+        $month = request('month') 
+        ? Carbon::parse(request('month')) 
+        : Carbon::now();
+
+
+        $attendances = Attendance::with('breaks')
+           ->where('user_id', $user->id)
+           ->whereYear('work_date', $month->year)
+           ->whereMonth('work_date', $month->month)
+           ->get();
+
+        $dates = [];
+
+        $lastDay = $month->daysInMonth;
+
+        for ($day = 1; $day <= $lastDay; $day++) {
+          $dates[] = sprintf(
+            '%04d-%02d-%02d',
+             $month->year,
+             $month->month,
+             $day
+          );
+        }   
+
+        $calendar = [];
+
+        foreach ($dates as $date) {
+           $attendanceData = null;
+
+           foreach ($attendances as $attendance) {
+              if ($attendance->work_date->format('Y-m-d') == $date) {
+                  $attendanceData = $attendance;
+                  break;
+              }
+           }
+
+           $calendar[] = [
+               'date' => \Carbon\Carbon::parse($date),
+               'attendance' => $attendanceData,
+           ];
+        }
+
+        return view('attendances.index',compact('calendar','month'));
     }
 
-    public function show()
+
+    public function show($id)
     {
-        return view('attendances.show');
+        $attendance = Attendance::with('breaks','user')
+          ->where('user_id', auth()->id())
+          ->findOrFail($id);
+
+        $pendingCorrection = StampCorrectionRequest::with('breaks','attendance')
+          ->where('attendance_id', $id)
+          ->where('status', 0)
+          ->first();  
+
+        return view('attendances.show', compact('attendance','pendingCorrection'));
     }
+
 
     public function clockIn()
     {
@@ -40,9 +99,9 @@ class AttendanceController extends Controller
         $today = now()->toDateString();
 
         if (Attendance::where('user_id', $user->id)
-           ->where('work_date', $today)
+           ->whereDate('work_date', $today)
            ->exists()) {
-        return redirect('/attendance');
+        return redirect()->route('attendance.create');
         }
 
         Attendance::create([
@@ -52,8 +111,9 @@ class AttendanceController extends Controller
          'status' => 1 // 出勤中
         ]);
 
-         return redirect('/attendance');
+         return redirect()->route('attendance.create');
     }
+
 
     public function clockOut()
     {
@@ -61,7 +121,7 @@ class AttendanceController extends Controller
         $today = now()->toDateString();
 
         $attendance = Attendance::where('user_id', $user->id)
-           ->where('work_date', $today)
+           ->whereDate('work_date', $today)
            ->first();
 
         if (
@@ -69,7 +129,7 @@ class AttendanceController extends Controller
           $attendance->status !== Attendance::STATUS_WORKING ||
           $attendance->clock_out
         ) {
-          return redirect('/attendance');
+          return redirect()->route('attendance.create');
         }
 
         $attendance->update([
@@ -77,7 +137,7 @@ class AttendanceController extends Controller
           'status' => Attendance::STATUS_DONE,
         ]);
 
-        return redirect('/attendance');
+        return redirect()->route('attendance.create');
 
     }
 

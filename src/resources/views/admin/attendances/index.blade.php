@@ -9,13 +9,25 @@
 
 <div class="page-content">
     <div class="page-container">
-     <h1 class="page-title">2023年6月1日の勤怠</h1>
+     <h1 class="page-title">
+        {{ $date->translatedFormat('Y年n月j日の勤怠') }}
+     </h1>
 
      <div class="attendance-month-nav">
-        <a href="#" class="month-link">← 前月</a>
-        <i class="fa-regular fa-calendar-days"></i>
-        <p class="current-month">2023/06/01</p>
-        <a href="#" class="month-link">翌月 →</a>
+        <a href="{{ route('admin.attendance.index', ['date' => $date->copy()->subDay()->toDateString()]) }}" 
+           class="month-link"
+        >
+           ←  前日
+        </a>
+        <p class="current-month">
+          <i class="fa-regular fa-calendar-days"></i>
+          {{ $date->format('Y/m/d') }}
+        </p>
+        <a href="{{ route('admin.attendance.index', ['date' => $date->copy()->addDay()->toDateString()]) }}"
+           class="month-link"
+        >
+           翌日  →
+        </a>
      </div>
 
      <div class="table-wrapper">
@@ -31,14 +43,28 @@
            </tr>
           </thead>
           <tbody>
+            @foreach($users as $user)
             <tr>
-             <td>山田 太郎</td>
-             <td>09:00</td>
-             <td>18:00</td>
-             <td>1:00</td>
-             <td>8:00</td>
-             <td><a href="" class="detail-link">詳細</a></td>
+             <td>{{ $user->name}}</td>
+             <td>{{ $user->attendance && $user->attendance->clock_in
+                    ? $user->attendance->clock_in->format('H:i') 
+                    : '' }}
+             </td>
+             <td>{{ $user->attendance && $user->attendance->clock_out
+                    ? $user->attendance->clock_out->format('H:i') 
+                    : '' }}
+             </td>
+             <td>{{ $user->attendance ? $user->attendance->break_time : '' }}</td>
+             <td>{{ $user->attendance ? $user->attendance->work_time  : ''}}</td>
+            <td>
+                @if ($user->attendance)
+                   <a href="{{ route('admin.attendance.show', $user->attendance->id) }}" class="detail-link">詳細</a>
+                @else
+                   <span class=detail-link>詳細</span>
+                @endif
+              </td>
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>

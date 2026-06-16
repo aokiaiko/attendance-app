@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AdminStaffController extends Controller
 {
    public function index()
     {
-        return view('admin.staffs.index');
+        $users = User::where('role','user')->get();
+
+        return view('admin.staffs.index',compact('users'));
     }
 
-    public function attendanceList()
-    {
-        return view('admin.staffs.attendances');
-    }
 }

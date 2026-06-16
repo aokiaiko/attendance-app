@@ -20,14 +20,9 @@
        <nav class="header-nav">
          <ul class="header-nav__item">
           
-           <li class="nav-item"><a href="/">勤怠</a></li>
-           <li class="nav-item"><a href="/">勤怠一覧</a></li>
-           <li class="nav-item">
-            <form class="form" action="/" method="POST">
-              @csrf
-              <button class="nav-link" type="submit">申請</button>
-            </form>
-           </li>
+           <li class="nav-item"><a href="{{ route('attendance.create') }}">勤怠</a></li>
+           <li class="nav-item"><a href="{{ route('attendance.index') }}">勤怠一覧</a></li>
+           <li class="nav-item"><a href="{{ route('stamp_correction_request.index') }}">申請</a></li>
            @auth
            <li class="nav-item">
             <form class="form" action="/logout" method="POST">

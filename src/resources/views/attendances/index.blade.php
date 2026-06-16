@@ -12,10 +12,12 @@
      <h1 class="page-title">勤怠一覧</h1>
 
      <div class="attendance-month-nav">
-        <a href="#" class="month-link">← 前月</a>
-        <i class="fa-solid fa-calendar"></i>
-        <p class="current-month">2023/06</p>
-        <a href="#" class="month-link">翌月 →</a>
+        <a href="{{ route('attendance.index', ['month' => $month->copy()->subMonth()->format('Y-m')]) }}" class="month-link">← 前月</a>
+        <p class="current-month">
+          <i class="fa-regular fa-calendar-days"></i>
+          {{ $month->format('Y/m') }}
+        </p>
+        <a href="{{ route('attendance.index', ['month' => $month->copy()->addMonth()->format('Y-m')]) }}" class="month-link">翌月 →</a>
      </div>
 
      <div class="table-wrapper">
@@ -31,14 +33,33 @@
            </tr>
           </thead>
           <tbody>
+            @foreach ($calendar as $day)
             <tr>
-             <td>06/01(木)</td>
-             <td>09:00</td>
-             <td>18:00</td>
-             <td>1:00</td>
-             <td>8:00</td>
-             <td><a href="" class="detail-link">詳細</a></td>
+              <td>
+                {{ $day['date']->translatedFormat('m/d(D)') }}
+              </td>
+              <td>
+                {{ $day['attendance'] && $day['attendance']->clock_in
+                    ? $day['attendance']->clock_in->format('H:i') 
+                    : '' }}
+              </td>
+              <td>
+                {{ $day['attendance'] && $day['attendance']->clock_out
+                    ? $day['attendance']->clock_out->format('H:i') 
+                    : ''}}
+              </td>
+              <td>{{ $day['attendance'] ? $day['attendance']->break_time : '' }}</td>
+              <td>{{ $day['attendance'] ? $day['attendance']->work_time : '' }}</td>
+
+              <td>
+                @if ($day['attendance'])
+                   <a href="{{ route('attendance.show', $day['attendance']->id) }}" class="detail-link">詳細</a>
+                @else
+                   <span class=detail-link>詳細</span>
+                @endif
+              </td>
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>

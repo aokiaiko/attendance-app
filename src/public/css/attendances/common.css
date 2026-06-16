@@ -14,7 +14,7 @@
   font-weight: bold;
   margin-bottom: 30px;
   padding-left: 16px;
-  border-left: 6px solid #000;
+  border-left: 8px solid #000;
 }
 
 .table-wrapper {
@@ -32,19 +32,17 @@
 .common-table td {
   text-align: center;
   padding: 16px 10px;
-  border-bottom: 1px solid #e5e5e5;
-  font-size: 14px;
-}
-
-.common-table th {
-  color: #666;
   font-weight: bold;
-  background: #fff;
+  color: gray;
 }
 
-.common-table td {
-  color: #333;
+.common-table th{
+  border-bottom: 4px solid #e5e5e5;;
 }
+.common-table td {
+  border-bottom: 2px solid #e5e5e5;;
+}
+
 
 .detail-link {
   color: #000;
@@ -54,4 +52,21 @@
 
 .detail-link:hover {
   text-decoration: underline;
+}
+
+.csv-link  {
+  display:flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+  
+}
+
+.csv-link a {
+  display: inline-block;
+  padding: 10px 30px;
+  text-decoration: none;
+  color:white;
+  background-color: black;
+  font-weight: bold;
+  border-radius: 4px;
 }

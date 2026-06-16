@@ -11,12 +11,15 @@
 .month-link {
   color: #666;
   text-decoration: none;
-  font-size: 16px;
+  font-weight: bold;
 }
 
 .current-month {
+  display: flex;
   font-size: 18px;
   font-weight: bold;
   margin: 0;
+  align-items: center;
+  gap: 8px;
 }
 
