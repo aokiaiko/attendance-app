@@ -58,24 +58,26 @@ class AdminAttendanceRequest extends FormRequest
             foreach ($breakStarts as $index => $breakStart) {
                 $breakEnd = $breakEnds[$index] ?? null;
 
+                $label = '休憩' . ($index === 0 ? '' : $index + 1);
+
                 if ($breakStart && $clockIn && $breakStart < $clockIn) {
                     $validator->errors()->add(
-                        'break_time',
-                        '休憩時間が不適切な値です'
+                        'break_time.' . $index,
+                        $label . 'の時間が不適切な値です'
                     );
                 }
 
                 if ($breakStart &&  $clockOut && $breakStart > $clockOut) {
                     $validator->errors()->add(
-                        'break_time',
-                        '休憩時間が不適切な値です'
+                        'break_time.' . $index,
+                        $label . 'の時間が不適切な値です'
                     );
                 }
 
                 if ($breakEnd && $clockOut && $breakEnd > $clockOut) {
                     $validator->errors()->add(
-                        'break_time',
-                        '休憩時間もしくは退勤時間が不適切な値です'
+                        'break_time.' . $index,
+                        $label . 'の時間もしくは退勤時間が不適切な値です'
                     );
                 }
                 

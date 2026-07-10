@@ -11,7 +11,7 @@
 @section('content')
 <div class="attendance-content">
     <div class="attendance-card">
-
+        <h1 class="attendance__heading">勤怠登録</h1>
         <div class="attendance-status">
             @if (!$attendance)
                勤務外

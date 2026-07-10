@@ -20,6 +20,7 @@ cp .env.example .env　　
 php artisan key:generate
 php artisan migrate
 php artisan db:seed
+php artisan test
 ```
 
 ## URL
@@ -41,15 +42,19 @@ php artisan db:seed
 ![ER図](src/app/docs/er.png)
 
 ## テストアカウント
+
 ### 一般ユーザー
+
 - **メールアドレス** : test@test.com
 - **パスワード** : password
 
 ### 一般ユーザー(別アカウント)
+
 - **メールアドレス** : test2@test.com　　　　　
 - **パスワード**: password
 
 ### 管理者
+
 - **メールアドレス** : admin@test.com
 - **パスワード** : password
 
@@ -58,5 +63,3 @@ php artisan db:seed
 ・画面要件では同日付の申請が複数表示されていましたが、本アプリでは同一勤怠に対して承認待ち申請を複数登録できない仕様としています。
 
 ・一般ユーザーと管理者は同一認証基盤を使用している為、切替える際はログアウト後に各ログイン画面からログインとしています。
-
-

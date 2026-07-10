@@ -78,7 +78,7 @@ class StampCorrectionRequestTest extends TestCase
 
         $actionResponse->assertStatus(302);
         $actionResponse->assertSessionHasErrors([
-             'break_time' => '休憩時間が不適切な値です'
+             'break_time.1' => '休憩2の時間が不適切な値です'
         ]);
 
         Carbon::setTestNow();
@@ -117,7 +117,7 @@ class StampCorrectionRequestTest extends TestCase
 
         $actionResponse->assertStatus(302);
         $actionResponse->assertSessionHasErrors([
-             'break_time' => '休憩時間もしくは退勤時間が不適切な値です'
+             'break_time.1' => '休憩2の時間もしくは退勤時間が不適切な値です'
         ]);
 
         Carbon::setTestNow();

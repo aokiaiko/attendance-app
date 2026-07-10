@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\StampCorrectionRequest;
 use App\Models\StampCorrectionRequestBreak;
@@ -34,9 +33,9 @@ class StampCorrectionRequestController extends Controller
         return view('stamp_correction_requests.index',compact('corrections'));
     }
 
-    public function store(StoreStampCorrectionRequest $request,$id)
+    public function store(StoreStampCorrectionRequest $request,$attendanceId)
     {
-       $attendance = Attendance::where('id', $id)
+       $attendance = Attendance::where('id', $attendanceId)
          ->where('user_id', auth()->id())
          ->firstOrFail();
 
@@ -44,7 +43,7 @@ class StampCorrectionRequestController extends Controller
 
         $correction = StampCorrectionRequest::create([
           'user_id' => auth()->id(),
-          'attendance_id' => $id,
+          'attendance_id' => $attendanceId,
           'requested_clock_in' =>  $request->clock_in ? $workDate . ' ' . $request->clock_in : $attendance->clock_in,
           'requested_clock_out' => $request->clock_out ?$workDate . ' ' . $request->clock_out : $attendance->clock_out,
           'note' => $request->note,

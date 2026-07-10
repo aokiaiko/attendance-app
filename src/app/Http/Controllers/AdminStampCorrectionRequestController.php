@@ -2,26 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\StampCorrectionRequest;
-use App\Models\Attendance;
-use App\Models\AttendanceBreak;
 
 class AdminStampCorrectionRequestController extends Controller
 {
-    public function show($attendance_correct_request_id)
+    public function show($correctionRequestId)
     {
         $approve = StampCorrectionRequest::with('attendance.user','breaks')
-             ->findOrFail($attendance_correct_request_id);
+             ->findOrFail($correctionRequestId);
 
         return view('admin.stamp_correction_requests.approve',compact('approve'));
 
     }
 
-    public function approve($attendance_correct_request_id)
+    public function approve($correctionRequestId)
     {
         $approve = StampCorrectionRequest::with('attendance.breaks','breaks')
-             ->findOrFail($attendance_correct_request_id);
+             ->findOrFail($correctionRequestId);
 
         $approve->update([
             'status' => 1 ,

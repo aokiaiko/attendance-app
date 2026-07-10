@@ -128,11 +128,24 @@
                <td class="range-cell">～</td>
                <td class="input-cell">
                 <input class="time-input" type="time" name="break_end[]"
-                       value="{{ old('break_end.' . $index,$break->break_end ? $break->break_end->format('H:i') : '') }}">
+                       value="{{ old('break_end.' . $index, $break->break_end ? $break->break_end->format('H:i') : '') }}">
                </td>
                <td></td>
                <td></td>
             </tr>
+            @error('break_time.' .$index)
+            <tr>
+               <td colspan="3">
+                    <div class="input-error">
+                        {{ $message }}
+                    </div>
+               </td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            @enderror
             @endforeach
 
             <tr>
@@ -150,7 +163,7 @@
                <td></td>
                <td></td>      
             </tr>
-            @error('break_time')
+            @error('break_time.' . $attendance->breaks->count())
             <tr>
                <td colspan="3">
                     <div class="input-error">

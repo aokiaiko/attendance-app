@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Attendance;
 use App\Models\StampCorrectionRequest;
@@ -78,14 +77,14 @@ class AttendanceController extends Controller
     }
 
 
-    public function show($id)
+    public function show($attendanceId)
     {
         $attendance = Attendance::with('breaks','user')
           ->where('user_id', auth()->id())
-          ->findOrFail($id);
+          ->findOrFail($attendanceId);
 
         $pendingCorrection = StampCorrectionRequest::with('breaks','attendance')
-          ->where('attendance_id', $id)
+          ->where('attendance_id', $attendanceId)
           ->where('status', 0)
           ->first();  
 

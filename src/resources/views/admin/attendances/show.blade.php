@@ -133,7 +133,21 @@
                <td></td>
                <td></td>
             </tr>
+            @error('break_time.' . $index)
+            <tr>
+               <td colspan="3">
+                    <div class="input-error">
+                        {{ $message }}
+                    </div>
+               </td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            @enderror 
             @endforeach
+            
 
             <tr>
                <th>休憩{{ $attendance->breaks->count() + 1  }}</th>
@@ -150,7 +164,7 @@
                <td></td>
                <td></td>
             </tr>
-            @error('break_time')
+            @error('break_time.' . $attendance->breaks->count())
             <tr>
                <td colspan="3">
                     <div class="input-error">
@@ -169,24 +183,15 @@
                 <td></td>
                 <td colspan="3">
                     <textarea class="note-textarea" name="note" >{{ old('note',$attendance->note) }}</textarea>
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
-            @error('note')
-            <tr>
-                <td colspan="3">
+                    @error('note')
                        <div class="input-error">
                           {{ $message }}
                        </div>
+                    @enderror
                 </td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
             </tr>
-            @enderror
-              
         </table>
       </div>
     

@@ -1,140 +1,140 @@
 .attendance-show-content {
-  background: #f3f3f3;
-  padding: 60px 20px 80px;
-  min-height: calc(100vh - 80px);
-  display: flex;
+    background: #f3f3f3;
+    padding: 60px 20px 80px;
+    min-height: calc(100vh - 80px);
+    display: flex;
 }
 
 .attendance-show-container {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .attendance-show-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0 0 35px;
-  padding-left: 16px;
-  border-left: 6px solid #000;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 35px;
+    padding-left: 16px;
+    border-left: 6px solid #000;
 }
 
 .show-table-wrapper {
-  background: #fff;
-  border-radius: 6px;
-  overflow: hidden;
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 .pending-wrapper {
-  margin-top: 60px;
+    margin-top: 60px;
 }
 
 .show-table {
-  width: 100%;
-  background: #fff;
+    width: 100%;
+    background: #fff;
 }
 
 .show-table th,
 .show-table td {
-  border-bottom: 1px solid #ddd;
-  padding: 20px 30px;
-  vertical-align: middle;
-  font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 30px;
+    vertical-align: middle;
+    font-weight: bold;
 }
 
 .show-table th {
-  width: 180px;
-  white-space: nowrap;
-  color: gray;
-  text-align: left;
+    width: 180px;
+    white-space: nowrap;
+    color: gray;
+    text-align: left;
 }
 
 .show-table td {
-  color: #000;
+    color: #000;
 }
 
 .input-cell {
-  width: 140px;
-  text-align: center;
+    width: 140px;
+    text-align: center;
 }
 
 .range-cell {
-  width: 40px;
-  text-align: center;
+    width: 40px;
+    text-align: center;
 }
 
 .year-cell,
 .date-cell,
 .input-cell {
-  text-align: left;
+    text-align: left;
 }
 
 .time-input {
-  width: 75px;
-  height: 22px;
-  padding: 4px 10px;
-  margin-left: auto;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  font-weight: bold;
-  font-size: 13px;
+    width: 75px;
+    height: 22px;
+    padding: 4px 10px;
+    margin-left: auto;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 13px;
 }
 
 .time-input::-webkit-calendar-picker-indicator {
-  display: none;
+    display: none;
 }
 
 .note-textarea {
-  width:  100%;
-  height: 60px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  resize: none;
-  font-weight: bold;
-  font-size: 13px;
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    resize: none;
+    font-weight: bold;
+    font-size: 13px;
 }
 
 .button-area {
-  display: flex;
-  justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .button {
-  margin-top: 25px;
-  width: 80px;
-  height: 40px;
-  background: #000;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
+    margin-top: 25px;
+    width: 80px;
+    height: 40px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .approved {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  margin-top: 25px;
-  width: 100px;
-  height: 40px;
-  background: gray;
-  color: #fff;
-  border-radius: 3px;
-  font-size: 18px;
-  font-weight: bold;
- 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    width: 100px;
+    height: 40px;
+    background: gray;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: bold;
 }
+
 .input-error {
-  color: red;
-  font-weight: normal;
-  font-size: 14px;
+    color: red;
+    font-weight: normal;
+    font-size: 14px;
 }
 
 .pending-message {
-  color: red;
-  text-align: right;
-  margin-top: 20px;
+    color: red;
+    text-align: right;
+    margin-top: 20px;
 }

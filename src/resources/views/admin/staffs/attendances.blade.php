@@ -12,12 +12,12 @@
      <h1 class="page-title">{{ $user->name }}さんの勤怠</h1>
 
      <div class="attendance-month-nav">
-        <a href="{{ route('attendance.index', ['month' => $month->copy()->subMonth()->format('Y-m')]) }}" class="month-link">← 前月</a>
+        <a href="{{ route('admin.attendance.staff', ['id' => $user->id,'month' => $month->copy()->subMonth()->format('Y-m')]) }}" class="month-link">← 前月</a>
         <p class="current-month">
           <i class="fa-regular fa-calendar-days"></i>
            {{ $month->format('Y/m') }}
         </p>
-        <a href="{{ route('attendance.index', ['month' => $month->copy()->addMonth()->format('Y-m')]) }}" class="month-link">翌月 →</a>
+        <a href="{{ route('admin.attendance.staff', ['id' => $user->id,'month' => $month->copy()->addMonth()->format('Y-m')]) }}" class="month-link">翌月 →</a>
      </div>
 
      <div class="table-wrapper">

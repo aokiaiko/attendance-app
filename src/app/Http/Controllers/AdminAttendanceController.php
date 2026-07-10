@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Attendance;
 use App\Http\Requests\AdminAttendanceRequest;
@@ -32,19 +31,19 @@ class AdminAttendanceController extends Controller
         return view('admin.attendances.index',compact('users', 'date'));
     }
 
-    public function show($id)
+    public function show($attendanceId)
     {
         $attendance = Attendance::with('user', 'breaks','pendingCorrection.breaks')
-                     ->findOrFail($id);
+                     ->findOrFail($attendanceId);
 
         return view('admin.attendances.show',compact('attendance'));
     }
 
-    public function staffAttendances($id)
+    public function staffAttendances($userId)
     {
         Carbon::setLocale('ja');
 
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($userId);
 
         $month = request('month') 
         ? Carbon::parse(request('month')) 
@@ -91,9 +90,9 @@ class AdminAttendanceController extends Controller
         return view('admin.staffs.attendances',compact('user','calendar','month'));
     }
 
-    public function update(AdminAttendanceRequest $request,$id)
+    public function update(AdminAttendanceRequest $request,$attendanceId)
     {
-        $attendance = Attendance::findOrFail($id);
+        $attendance = Attendance::findOrFail($attendanceId);
        
         $workDate =  $attendance->work_date->format('Y-m-d');
 
@@ -107,10 +106,12 @@ class AdminAttendanceController extends Controller
         $breakEnds = $request->break_end ?? [];
 
         foreach ($breakStarts as $index => $breakStart) {
-          $breakEnd = $breakEnds[$index] ?? [];;
+          $breakEnd = $breakEnds[$index] ?? null;
 
           if ($index < $attendance->breaks->count()) {
-               $attendance->breaks[$index]->update([
+              $break = $attendance->breaks[$index];
+              
+              $attendance->breaks[$index]->update([
                  'break_start' =>  $breakStart ? $workDate . ' ' . $breakStart : $break->break_start,
                  'break_end' => $breakEnd ? $workDate . ' ' . $breakEnd : $break->break_end,
                ]);
@@ -126,21 +127,25 @@ class AdminAttendanceController extends Controller
     }
 
 
-    public function exportCsv($id)
+    public function exportCsv($userId)
     {
         $user = User::findOrFail($id);
 
-        $attendances = Attendance::where('user_id', $id)
+        $attendances = Attendance::where('user_id', $userId)
             ->get();
+
+        $fileName = "{$user->name}_attendance.csv";
 
         $headers = [
             'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="attendance.csv"',
+            'Content-Disposition' => "attachment; filename=\"{$fileName}\"",
         ];
 
         $callback = function () use ($attendances) {
 
             $file = fopen('php://output', 'w');
+
+            fwrite($file, "\xEF\xBB\xBF");
 
             fputcsv($file, [
                 '日付',
