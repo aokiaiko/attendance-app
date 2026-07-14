@@ -20,6 +20,37 @@ cp .env.example .env　　
 php artisan key:generate
 php artisan migrate
 php artisan db:seed
+```
+
+## テスト
+
+### テスト用データベース作成
+
+MySQLに `attendance_app_test` データベースを作成してください。
+
+```bash
+docker-compose exec mysql bash
+mysql -u root -p
+```
+
+パスワードは以下を入力してください。
+
+```
+root
+```
+
+```sql
+CREATE DATABASE attendance_app_test;
+```
+
+### テスト実行
+
+`.env` をコピーして `.env.testing` を作成し、`DB_DATABASE` を `attendance_app_test` に変更してください。
+
+```bash
+cp .env .env.testing
+php artisan key:generate --env=testing
+php artisan migrate --env=testing
 php artisan test
 ```
 
